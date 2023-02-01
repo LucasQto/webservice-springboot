@@ -2,10 +2,12 @@ package com.devlucas.firstwebservice.config;
 
 import com.devlucas.firstwebservice.model.Category;
 import com.devlucas.firstwebservice.model.Order;
+import com.devlucas.firstwebservice.model.Product;
 import com.devlucas.firstwebservice.model.User;
 import com.devlucas.firstwebservice.model.enums.OrderStatus;
 import com.devlucas.firstwebservice.repository.CategoryRepository;
 import com.devlucas.firstwebservice.repository.OrderRepository;
+import com.devlucas.firstwebservice.repository.ProductRepository;
 import com.devlucas.firstwebservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -35,7 +40,14 @@ public class TestConfig implements CommandLineRunner {
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
 
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsumdolor sit amet consectetur.", 90.5, "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
         User u1 = new User(null, "tst", "tst@gmail.com", "3263324363", "372844348374");
         User u2 = new User(null, "teste", "teste@gmail.com", "326343346263", "372434848374");
