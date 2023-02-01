@@ -1,8 +1,10 @@
 package com.devlucas.firstwebservice.config;
 
+import com.devlucas.firstwebservice.model.Category;
 import com.devlucas.firstwebservice.model.Order;
 import com.devlucas.firstwebservice.model.User;
 import com.devlucas.firstwebservice.model.enums.OrderStatus;
+import com.devlucas.firstwebservice.repository.CategoryRepository;
 import com.devlucas.firstwebservice.repository.OrderRepository;
 import com.devlucas.firstwebservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Eletronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
         User u1 = new User(null, "tst", "tst@gmail.com", "3263324363", "372844348374");
         User u2 = new User(null, "teste", "teste@gmail.com", "326343346263", "372434848374");
