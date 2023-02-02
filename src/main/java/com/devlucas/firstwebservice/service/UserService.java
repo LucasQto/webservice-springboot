@@ -2,8 +2,11 @@ package com.devlucas.firstwebservice.service;
 
 import com.devlucas.firstwebservice.model.User;
 import com.devlucas.firstwebservice.repository.UserRepository;
+import com.devlucas.firstwebservice.service.exceptions.DataBaseException;
 import com.devlucas.firstwebservice.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +31,13 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj) {
